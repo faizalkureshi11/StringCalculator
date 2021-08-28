@@ -1,4 +1,4 @@
-#TASK-3
+#TASK-4
 import pytest
 
 def test():
@@ -19,6 +19,10 @@ def test():
     assert(add("1\n2,3") == 6)
     assert(add("9\n6,5\n4") == 24)
     assert(add("4\n3\n6\n1") == 14)
+    # Support Different Delimiters
+    assert(add("//;\n1;2") == 3)
+    assert(add("//;\n1;2;4") == 7)
+
 
 def add(numbersString):
     if len(numbersString) == 0:
@@ -26,9 +30,10 @@ def add(numbersString):
     elif len(numbersString) == 1:
         return int(numbersString)
     else:
-        numbersString = numbersString.replace("\n",",")
-        result = 0
+        numbersString = numbersString.replace("\n",",").replace(";",",").replace("//","")
         ans = numbersString.split(",")
+        ans = ' '.join(ans).split()
+        result = 0
         for num in ans:
             result += int(num)
         return result
