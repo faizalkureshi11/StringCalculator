@@ -1,4 +1,4 @@
-#TASK-4
+#TASK-5
 import pytest
 
 def test():
@@ -22,7 +22,9 @@ def test():
     # Support Different Delimiters
     assert(add("//;\n1;2") == 3)
     assert(add("//;\n1;2;4") == 7)
-
+    # Reject Negative Value
+    assert (ValueError, add, "-1")
+    assert (ValueError, add,"1,-2")
 
 def add(numbersString):
     if len(numbersString) == 0:
@@ -35,8 +37,9 @@ def add(numbersString):
         ans = ' '.join(ans).split()
         result = 0
         for num in ans:
+            if int(num) < 0:
+                raise ValueError
             result += int(num)
         return result
         
 test()
-
